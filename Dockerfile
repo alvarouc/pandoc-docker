@@ -15,9 +15,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
        fontconfig \
        lmodern \
        libghc-text-icu-dev \
+       python-pip\
     && apt-get clean
 
 # Install cabal and then pandoc + citeproc
 RUN cabal update && cabal install pandoc pandoc-citeproc --force-reinstalls
+
+# Install latex diff
+RUN pip install git+https://github.com/alvarouc/pandoc-docker.git
 
 WORKDIR /build
